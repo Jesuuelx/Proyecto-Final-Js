@@ -86,46 +86,53 @@ $(`.parrafo${i}`).append(`<button class="boton${i} btn btn-outline-primary"> Agr
        
         for (let i = 0; i < response.length; i++) {
     
-            const html = ` <div class="card"><p >${response[i].name}</p>
-        <img class="img${i}" src="${response[i].url}" alt="">
-        <p class="parrafo${i}">Precio : ${response[i].precio}$  </p></div>
-        `;
-       
-        seccion.append(html);
-    
-
+            const html = `<div class="card"><p>${response[i].name}</p>
+            <img class="img${i}" src="${response[i].url}" alt="">
+            <p class="parrafo${i}">Precio:${response[i].precio}$</p>
+            </div>
+            `;
+           
+            seccion.append(html);
+        
+        
+        
         $(`.parrafo${i}`).append(`<button class="boton${i} btn btn-outline-primary"> Agregar al Carrito</button>`);
-
-        $(`.card`).prepend(`<div id="div1" style="display:none">
-    <h3>¡Agregado al Carrito!</h3>
-    <h4>Con Exito!</h4>
-    </div>`)
-    
-    /* CONTADOR Y LOCALSTORAGE */
-        $(`.boton${i}`).click( () => {
-            (localStorage.getItem('contador') != 0) ? counter = localStorage.getItem('contador') : counter = 0;
-            (localStorage.getItem('cuenta') != 0 ) ? acumulado =  JSON.parse( localStorage.getItem('cuenta') )  : acumulado = 0;
-            ( (localStorage.getItem('alimento')).length > 1 ) ? storage = JSON.parse( localStorage.getItem('alimento') ) : storage = [];    
-            counter++;
-            acumulado = acumulado + response[i].precio; 
-            nuevoStorageUno = response[i];
-            storage.push( nuevoStorageUno );
-            localStorage.setItem('alimento', JSON.stringify( storage )) ;   
-            localStorage.setItem('cuenta', acumulado);
-            localStorage.setItem('contador', counter); 
-            precioTotal.text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`);
-            carrito.text(`${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}`)
-      
+        
+            /*  CONTADOR Y LOCALSTORAGE */
+        
+            $(`.card`).prepend(`<div id="div1" style="display:none">
+            <h3>¡Agregado al Carrito!</h3>
+            <h4>Con Exito!</h4>
+            </div>`)
+        
+            $(`.boton${i}`).click( () => {
+                
+        
+                    (localStorage.getItem('contador') != 0) ? counter = localStorage.getItem('contador') : counter = 0;
+                    (localStorage.getItem('cuenta') != 0 ) ? acumulado =  JSON.parse( localStorage.getItem('cuenta') )  : acumulado = 0;
+                    ( localStorage.getItem('alimento') ) ? storage = JSON.parse( localStorage.getItem('alimento') ) : storage = [];
+                    console.log(typeof acumulado);
+                 /*    ( (JSON.parse(localStorage.getItem('alimento'))).length > 0) ? storage = localStorage.getItem('alimento') : storage = [];  */
+                    counter++;
+                    acumulado =  response[i].precio + acumulado   ; 
+                    nuevoStorageUno = response[i];
+                    storage.push( nuevoStorageUno );
+                    localStorage.setItem('alimento', JSON.stringify( storage ));
+                    localStorage.setItem('cuenta', acumulado);
+                    localStorage.setItem('contador', counter); 
+                    precioTotal.text(`${(localStorage.getItem('cuenta')) ? ( localStorage.getItem('cuenta') ) : 0}$`);
+                    carrito.text(`${(localStorage.getItem('contador')) ? JSON.parse( localStorage.getItem('contador') ) : 0}`) 
+                
             
-            
-            $('#div1').fadeIn("slow" , function(){
-                //Cuando termina de ocultarse el elemento lo mostramos nuevamente
-                $("#div1").fadeOut(1000); })
-        }
-
-            )
-         
-        } }  })}
+                    $('#div1').fadeIn("slow" , function(){
+                        //Cuando termina de ocultarse el elemento lo mostramos nuevamente
+                        $("#div1").fadeOut(1000); })
+        
+        
+                 })        
+                
+            }}}  )}
+        
         
          precioTotal.text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`);
         carrito.text(`${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}`)
