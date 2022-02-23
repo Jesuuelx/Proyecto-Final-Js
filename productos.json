@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "alimento": "Concentrado",
+    "name": "Hills",
+    "url": "./asets/hills.jpg",
+    "precio": 100
+  },
+  {
+    "id": 2,
+    "alimento": "concetrado",
+    "name": "NutraNuggets",
+    "url": "./asets/nutran.jpg",
+    "precio": 60
+  },
+  {
+    "id": 3,
+    "alimento": "concentrado",
+    "name": "Royal Canin",
+    "url": "./asets/royal.jpg",
+    "precio": 60
+  },
+  {
+    "id": 4,
+    "alimento": "concetrado",
+    "name": "Agility",
+    "url": "./asets/agility.jpg",
+    "precio": 80
+  },
+  {
+    "id": 5,
+    "alimento": "concetrado",
+    "name": "Chunky",
+    "url": "./asets/chunky.jpg",
+    "precio": 60
+  },
+  {
+    "id": 6,
+    "alimento": "concetrado",
+    "name": "Country",
+    "url": "./asets/country.jpg",
+    "precio": 60
+  },
+  {
+    "id": 7,
+    "alimento": "concetrado",
+    "name": "DogChow",
+    "url": "./asets/dogchow.jpg",
+    "precio": 60
+  },
+  {
+    "id": 8,
+    "alimento": "concetrado",
+    "name": "Eukanuba",
+    "url": "./asets/eukanuba.jpg",
+    "precio": 60
+  },
+  {
+    "id": 9,
+    "alimento": "concetrado",
+    "name": "Max",
+    "url": "./asets/max.jpg",
+    "precio": 60
+  },{
+    "id": 10,
+    "alimento": "concetrado",
+    "name": "Monello",
+    "url": "./asets/monello.jpg",
+    "precio": 70
+  },{
+    "id": 11,
+    "alimento": "concetrado",
+    "name": "Ringo",
+    "url": "./asets/ringo.jpg",
+    "precio": 30
+  }
+]
