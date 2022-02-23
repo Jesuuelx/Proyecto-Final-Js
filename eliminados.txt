@@ -1,0 +1,21 @@
+/* boton de carrito */
+
+
+/* $(`.dog`).prepend(`<div id="div2" style="display:none">
+<div><h3>Productos Total a Pagar: | </h3>
+<h4 class"cuenta"> ${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0 }$</h4></div>
+<div><h3>Cantidad</h3>
+<h4 class"counter">${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}</h4></div>    
+
+    </div>`)
+$('#div2').css("position", "absolute");
+ $('#div2').css("background-color", "yellow")
+ $('#div2').css("width", "50%")
+ $('#div2').css("border", "solid 2px black")
+   
+
+$('svg').click(() => {
+    $('#div2').toggle("fast")
+    $('cuenta').text();
+
+})  */

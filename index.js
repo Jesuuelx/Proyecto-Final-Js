@@ -17,30 +17,7 @@ let cuentaStorage = [];
 const productos = 'productos.json';
 const productosCats = 'productosCats.json';
 
-/* BASE DE DATOS */
 
-
-let gatos = [
-    { alimento:'hillsg',
-      precio:100,
-      title:'Hills'  
-    },
-{
-    alimento:'nutrag',
-      precio:60,
-      title:'NutraNuggets',
-
-},
-{
-      alimento:'royalg',
-      precio:100,
-      title:'RoyalCanin',
-
-}
-
-]
-
-/* console.log(perros[1].title) */
 
 /* CREAR HTML EN BOTON PERROS */
 const crearHtmlDog = (  ) => {
@@ -150,9 +127,9 @@ $(`.parrafo${i}`).append(`<button class="boton${i} btn btn-outline-primary"> Agr
          
         } }  })}
         
-        precioTotal.text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`);
+         precioTotal.text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`);
         carrito.text(`${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}`)
-
+ 
 /* TOCAR BOTON PERROS */
 btnPerros.click( () => {
    
@@ -185,27 +162,6 @@ form.submit(function (e)  {
 })
 
 
-/* boton de carrito */
-
-
-/* $(`.dog`).prepend(`<div id="div2" style="display:none">
-<div><h3>Productos Total a Pagar: | </h3>
-<h4 class"cuenta"> ${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0 }$</h4></div>
-<div><h3>Cantidad</h3>
-<h4 class"counter">${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}</h4></div>    
-
-    </div>`)
-$('#div2').css("position", "absolute");
- $('#div2').css("background-color", "yellow")
- $('#div2').css("width", "50%")
- $('#div2').css("border", "solid 2px black")
-   
-
-$('svg').click(() => {
-    $('#div2').toggle("fast")
-    $('cuenta').text();
-
-})  */
 
 /* vaciar carrito */
 
@@ -221,48 +177,57 @@ $('.vacio').click(() => {
 
 })
 
-counter = ( localStorage.getItem('contador') ) ? localStorage.getItem('contador') : 0;
+  /* Area de compras.html */
  const crearListaCompras = ( data ) => {
 
-    const html = `<div class="flex-data ${data.id}" data-id="${data.id}"><img class="img" src="${data.url}" alt="${data.name}">
+    for (let i = data.length - 1; i >= 0; i--) {
+            
+    const html = `<div class="${data[i].id} flex-data" data-id="${data[i].id}"><img class="img" src="${data[i].url}" alt="${data[i].name}">
     <div><p>Nombre del Producto:
     </p>
-    <span>${data.name}</span>
-    <span><p>Precio:</p>${data.precio}$</span></div><button class="btn btn-primary">Sumar</button> <button class="btn btn-danger peligro">Eliminar</button> </div> 
+    <span>${data[i].name}</span>
+    <span class="eliminar${[i]}"><p>Precio:</p>${data[i].precio}$</span></div>  
     `;
    
     seccion2.append(html);
-    
-    $('.peligro').click(() => {
-      
-        console.log(counter)
-       counter = counter - 1;
-       localStorage.setItem('contador', counter);
 
-        const todoElemento   = event.target.parentElement;
+    $(`.eliminar${[i]}`).append(`<button class="peligro${[i]} btn btn-danger">Eliminar</button>`)
+    
+    $(`.peligro${[i]}`).click((event) => {
+        
+        
+        
+       (localStorage.getItem('contador') != 0) ? counter = localStorage.getItem('contador') : counter = 0 ;  
+       counter = counter - 1;
+
+       (localStorage.getItem('cuenta') != 0 ) ? acumulado =  JSON.parse( localStorage.getItem('cuenta') )  : acumulado = 0;
+        acumulado = acumulado - data[i].precio
+
+        localStorage.setItem('cuenta', acumulado);
+       localStorage.setItem('contador', counter);
+        const todoElemento = event.target.parentElement.parentElement.parentElement;
         console.log(todoElemento)
        let id = $('.flex-data').attr('data-id');
-       console.log(id)  /* 
-       counter = JSON.parse( localStorage.getItem('contador'))
-       counter = counter - 1;
-       acumulado = JSON.parse( localStorage.getItem('cuenta'));
-       acumulado = acumulado - data.precio;
-       localStorage.setItem('cuenta', acumulado)
-       localStorage.setItem('contador', counter) */
+       console.log(id)
 
-       
 
-       storage = JSON.parse( localStorage.getItem('alimento') );
+
+       storage = ( (localStorage.getItem('alimento')).length > 1 ) ? storage = JSON.parse( localStorage.getItem('alimento') ) : storage = [];
        storage = storage.filter(alimento => alimento.id != id )
        localStorage.setItem('alimento', JSON.stringify( storage ))
        localStorage.setItem('contador', counter);
        todoElemento.remove();
 
-       
+       precioTotal.text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`);
+        carrito.text(`${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}`)
+        $('.cuentaTd').text(`${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$`)
+        $('.contadorTd').text(`${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}`)
+   
+        
     })
 
 
-}
+}}
 
 const crearTotal = (  ) => {
 
@@ -277,8 +242,8 @@ const crearTotal = (  ) => {
     <tbody>
       <tr>
         <th scope="row">#</th>
-        <td>${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$</td>
-        <td>${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}</td>
+        <td class="cuentaTd">${(localStorage.getItem('cuenta')) ? localStorage.getItem('cuenta') : 0}$</td>
+        <td class="contadorTd">${(localStorage.getItem('contador')) ? localStorage.getItem('contador') : 0}</td>
       </tr>
     </tbody>
   </table`
@@ -287,8 +252,14 @@ const crearTotal = (  ) => {
 
 }
 
-if( !(localStorage.getItem('alimento') ) ) {
+if( (!(localStorage.getItem('alimento')) ) || JSON.parse(localStorage.getItem('contador') ) == 0  ) {
 
+    counter = 0;
+    acumulado = 0;
+    storage = [];
+    localStorage.setItem('contador', counter);
+    localStorage.setItem('cuenta', acumulado);
+    localStorage.setItem('alimento', JSON.stringify( storage ));
     const html = `<div class="avisoVacio">
     <h3>El Carrito Esta Vacio</h3>
     <a href="./index.html"> Vuelve a la Pagina Principal</a></div>`;
@@ -298,9 +269,9 @@ console.log(storage)
 
 }else { 
 
-    ( JSON.parse( localStorage.getItem('alimento') ) ).forEach(alimento =>{ crearListaCompras( alimento )});
-crearTotal()
-
+crearListaCompras( ( JSON.parse(localStorage.getItem('alimento')) ) )
+    crearTotal()
+    
 } 
 
 
